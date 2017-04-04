@@ -12,8 +12,7 @@ server.connection({
 });
 
 
-// coming from front when the user creates their account
-// this is not saved in out database
+// New user creates their account
 const newUser = {
   username: 'john',
   password: 'abc123',
@@ -22,24 +21,31 @@ const newUser = {
 };
 
 
+// Number of times the password will be hashed with random data
 const saltRounds = 10;
 
+
+// Hash the plain text password
 bcrypt.genSalt(saltRounds, function(err, salt) {
   bcrypt.hash(newUser.password, salt, function(err, hash) {
+    console.log('======= newUser.password before hash: ', newUser.password);
     newUser.password = hash;
+    console.log('======= newUser.password after hash: ', newUser.password);
   });
 });
 
 
-// validation function
+//  Function specific to hapi-auth-basic white
+//  It allows us to verify that the user has provided valid credentials.
 const validate = function(request, username, password, callback) {
-  // check if user exists
+
+  // Exit funtion if user does not exist
   const user = newUser.username;
   if (!user) {
     return callback(null, false);
   }
 
-  //
+  // Compare the input password with the hashed password stored in database
   bcrypt.compare(password, newUser.password, (err, isValid) => {
     callback(err, isValid, {
       id: newUser.id,
@@ -50,12 +56,17 @@ const validate = function(request, username, password, callback) {
 
 
 
+// Register the basic plugin to create authentication scheme
 server.register(basic, (err) => {
 
   if (err) {
     throw err;
   }
 
+  // Once you've registered your scheme, you need a way to use it.
+  // This is where strategies come in.
+  // Create a authentication strategy with the name 'basic'
+  // 'simple' strategy and 'basic' scheme
   server.auth.strategy('simple', 'basic', {validateFunc: validate});
 
   server.route({
@@ -64,8 +75,7 @@ server.register(basic, (err) => {
     config: {
       auth: 'simple',
       handler: function(request, reply) {
-        console.log('====-==', request.auth.credentials);
-        reply('hello, ' + request.auth.credentials.name);
+        reply(`<h1>Hello ${request.auth.credentials.name}, you are now logged in.</h1>`);
       }
     }
   });
