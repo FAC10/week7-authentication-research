@@ -1,0 +1,24 @@
+{
+  "name": "week7-authentication-research",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FAC10/week7-authentication-research.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FAC10/week7-authentication-research/issues"
+  },
+  "homepage": "https://github.com/FAC10/week7-authentication-research#readme",
+  "devDependencies": {
+    "bcrypt": "^1.0.2",
+    "hapi": "^16.1.1",
+    "hapi-auth-basic": "^4.2.0"
+  }
+}
