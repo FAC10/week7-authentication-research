@@ -9,8 +9,10 @@ Think of a `scheme` as a general type of auth, like `"basic"` or `"digest"`. You
 Some authentication schemas are available as a plugin for HAPI:
 
 * [hapi-auth-basic](https://github.com/hapijs/hapi-auth-basic)
-* [hapi-auth-cookie](https://github.com/hapijs/hapi-auth-cookie)
+* [hapi-auth-cookie](https://github.com/hapijs/hapi-auth-cookie) </br>Provides simple cookie-based session management. Upon validation user receives a session cookie.
 * [hapi-auth-bearer-token](https://github.com/johnbrett/hapi-auth-bearer-token)
+</br>
+Bearer authentication requires validating a token passed in by either the bearer authorization header, or by an access_token query parameter.
 
 A `strategy` is a pre-configured and named instance of a scheme. Strategies exist so you can use the same scheme several times, in a slightly different way. For instance, might decide to you want use basic authentication in your app. For some routes you might wish to validate a user’s passwords against a value in a database and for some other routes, you might wish to check the password against a value stored in a text file. In this case you can create 2 different strategies from the scheme.
 
