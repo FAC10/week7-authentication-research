@@ -16,7 +16,7 @@ Bearer authentication requires validating a token passed in by either the bearer
 
 A `strategy` is a pre-configured and named instance of a scheme. Strategies exist so you can use the same scheme several times, in a slightly different way. For instance, might decide to you want use basic authentication in your app. For some routes you might wish to validate a user’s passwords against a value in a database and for some other routes, you might wish to check the password against a value stored in a text file. In this case you can create 2 different strategies from the scheme.
 
-![3bksb](https://cloud.githubusercontent.com/assets/20152018/24664718/4b73c99a-1953-11e7-8c58-02c5f9d04d6f.png)
+![graph](./demo/3bKsB.png)
 
 
 The authenticate method has a signature of `function (request, reply)`, and is the only required method in a scheme.
