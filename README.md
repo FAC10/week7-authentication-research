@@ -21,8 +21,31 @@ A `strategy` is a pre-configured and named instance of a scheme. Strategies exis
 
 The authenticate method has a signature of `function (request, reply)`, and is the only required method in a scheme.
 
-### Bcrypt
+## Bcrypt
 
+### Hashing
+
+Hashing is a way of encrypting an input string. It is a one way process, so hashing a password will  An ideal hash function has five properties:
+
+1. It is deterministic (the same input always results in the same output hash).
+2. Computing a hash is fast.
+3. It is infeasible to reverse the process and get the input value from the hash (i.e. usually the only method is brute-forcing by comparing every possible value until a match is found, which takes huge amounts of time for a long enough hash).
+4. A small change to the input should change the hash enough that there is no correlation between the new and old hashes.
+5. It is unlikely that two inputs will produce the same hash value.
+
+### Salting
+
+Salting involves adding random data to the input to the hashing function, to protect against certain kinds of attacks (like dictionary or rainbow table attacks).
+
+Since salts do not have to be memorised by humans they can make the size of the rainbow table required for a successful attack prohibitively large without placing a burden on the users.
+
+Since salts are different in each case, they also protect commonly used passwords, or those who use the same password on several sites, by making all salted hash instances for the same password different from each other.
+
+### Practical application
+
+Bcrypt is a library for hashing passwords. It provides functions for salting and hashing a plaintext password string.
+
+The general idea is to hash a password when a user first creates it, then store the hashed password in a database. When the user tries to log in later you hash the password they provide and compare this hash to the stored hash in the database. If the hashes match that means the passwords are the same, so the user is authenticated.
 
 ### Hapi-auth-basic
 https://github.com/hapijs/hapi-auth-basic
